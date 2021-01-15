@@ -35,7 +35,7 @@ module Efm
             down
           when Curses::KEY_CTRL_P
             up
-          when Curses::KEY_CTRL_H, Curses::KEY_CTRL_B
+          when Curses::KEY_CTRL_H, Curses::KEY_CTRL_B, 127
             left
             ls
           when Curses::KEY_CTRL_F, 10, 13
