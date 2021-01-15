@@ -31,14 +31,14 @@ module Efm
       begin
         loop do
           case c = @main.getch
-          when 'j'
+          when Curses::KEY_CTRL_N
             down
-          when 'k'
+          when Curses::KEY_CTRL_P
             up
-          when 'h'
+          when Curses::KEY_CTRL_H, Curses::KEY_CTRL_B
             left
             ls
-          when 'l', 10, 13
+          when Curses::KEY_CTRL_F, 10, 13
             if @current_item.dir?
               cd(@current_item.name)
             else
