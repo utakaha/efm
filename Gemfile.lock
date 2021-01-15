@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     efm (0.1.0)
+      curses (~> 1.4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -27,7 +28,6 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
-  curses
   efm!
   rake (~> 13.0)
   rspec (~> 3.0)
