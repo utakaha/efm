@@ -2,6 +2,8 @@
 
 efm is a small Emacs-like file manager written in Ruby.
 
+![screenshot](https://raw.githubusercontent.com/iavivai/efm/master/basic.gif)
+
 ## Installation
 
 install it yourself as:
