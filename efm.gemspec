@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["hello@yukitakaiha.com"]
 
   spec.summary       = "Emacs-like File Manager"
-  spec.description   = "efm is a Emacs-like file manager."
+  spec.description   = "efm is a small Emacs-like file manager written in Ruby."
   spec.homepage      = "https://github.com/iavivai/efm"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")

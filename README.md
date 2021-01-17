@@ -1,6 +1,6 @@
 # efm: Emacs-like File Manager
 
-efm is a Emacs-like file manager.
+efm is a small Emacs-like file manager written in Ruby.
 
 ## Installation
 
