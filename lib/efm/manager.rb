@@ -24,7 +24,7 @@ module Efm
 
     def run
       init_position
-      cd
+      cd('.')
       ls
       update_header
 
@@ -37,6 +37,9 @@ module Efm
             up
           when Curses::KEY_CTRL_H, Curses::KEY_CTRL_B, 127
             left
+            ls
+          when Curses::KEY_CTRL_A
+            cd
             ls
           when Curses::KEY_CTRL_F, 10, 13
             if @current_item.dir?
@@ -147,8 +150,8 @@ module Efm
       @main.maxy
     end
 
-    def cd(dir = '.')
-      Dir.chdir(dir)
+    def cd(dir = nil)
+      dir ? Dir.chdir(dir) : Dir.chdir
       @items = Item.all
       @page = 0
       @last_page = @items.count / maxy
