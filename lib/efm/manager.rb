@@ -19,7 +19,8 @@ module Efm
 
     def initialize
       @header = Curses::Window.new(1, Curses.cols, 0, 0)
-      @main = Curses::Window.new(Curses.lines - 1, Curses.cols, 1, 0)
+      @main = Curses::Window.new(Curses.lines - 2, Curses.cols, 1, 0)
+      @footer = Curses::Window.new(1, Curses.cols, Curses.lines - 1, 0)
     end
 
     def run
@@ -27,6 +28,7 @@ module Efm
       cd('.')
       ls
       update_header
+      display_footer
 
       begin
         loop do
@@ -68,6 +70,14 @@ module Efm
         @header.addstr(File.expand_path(@current_item.name))
       end
       @header.refresh
+    end
+
+    def display_footer
+      @footer.setpos(0, 0)
+      @footer.attron(Curses.color_pair(Curses::COLOR_WHITE) | Curses::A_NORMAL) do
+        @footer.addstr('up: C-p, down: C-n, forward: C-f, backward: C-b')
+      end
+      @footer.refresh
     end
 
     def clear_screen
