@@ -23,6 +23,8 @@ module Efm
       @footer = Curses::Window.new(1, Curses.cols, Curses.lines - 1, 0)
     end
 
+    attr_reader :header, :main, :footer
+
     def run
       init_position
       cd('.')
@@ -32,7 +34,7 @@ module Efm
 
       begin
         loop do
-          case c = @main.getch
+          case c = main.getch
           when Curses::KEY_CTRL_N
             down
           when Curses::KEY_CTRL_P
@@ -64,31 +66,31 @@ module Efm
     private
 
     def update_header
-      @header.setpos(0, 0)
-      @header.clrtoeol
-      @header.attron(Curses.color_pair(Curses::COLOR_GREEN) | Curses::A_NORMAL) do
-        @header.addstr(File.expand_path(@current_item.name))
+      header.setpos(0, 0)
+      header.clrtoeol
+      header.attron(Curses.color_pair(Curses::COLOR_GREEN) | Curses::A_NORMAL) do
+        header.addstr(File.expand_path(@current_item.name))
       end
-      @header.refresh
+      header.refresh
     end
 
     def display_footer
-      @footer.setpos(0, 0)
-      @footer.attron(Curses.color_pair(Curses::COLOR_WHITE) | Curses::A_NORMAL) do
-        @footer.addstr('up: C-p, down: C-n, forward: C-f, backward: C-b')
+      footer.setpos(0, 0)
+      footer.attron(Curses.color_pair(Curses::COLOR_WHITE) | Curses::A_NORMAL) do
+        footer.addstr('up: C-p, down: C-n, forward: C-f, backward: C-b')
       end
-      @footer.refresh
+      footer.refresh
     end
 
     def clear_screen
-      @main.clear
+      main.clear
     end
 
     def init_position
       @x = 0
       @y = 0
 
-      @main.setpos(@y, @x)
+      main.setpos(@y, @x)
     end
 
     def up
@@ -108,7 +110,7 @@ module Efm
       end
 
       @current_item = @display_items[@y]
-      @main.setpos(@y, @x)
+      main.setpos(@y, @x)
       decorate_current_item
     end
 
@@ -125,7 +127,7 @@ module Efm
       end
 
       @current_item = @display_items[@y]
-      @main.setpos(@y, @x)
+      main.setpos(@y, @x)
       decorate_current_item
     end
 
@@ -139,25 +141,25 @@ module Efm
     end
 
     def init_prev_item
-      @main.setpos(@y, @x)
+      main.setpos(@y, @x)
       display_line(@current_item)
     end
 
     def decorate_current_item
-      @main.clrtoeol
-      @main.attron(@current_item.color | Curses::A_STANDOUT) do
-        @main.addstr(@current_item.name)
+      main.clrtoeol
+      main.attron(@current_item.color | Curses::A_STANDOUT) do
+        main.addstr(@current_item.name)
       end
     end
 
     def display_line(item)
-      @main.attron(item.color | Curses::A_NORMAL) do
-        @main.addstr(item.name)
+      main.attron(item.color | Curses::A_NORMAL) do
+        main.addstr(item.name)
       end
     end
 
     def maxy
-      @main.maxy
+      main.maxy
     end
 
     def cd(dir = nil)
@@ -175,14 +177,14 @@ module Efm
       @current_item = @display_items.first
 
       @display_items.each do |item|
-        @main.setpos(@y, @x)
+        main.setpos(@y, @x)
         display_line(item)
         @y = @y + 1
       end
 
       init_position
       decorate_current_item
-      @main.refresh
+      main.refresh
 
       @last_line = @display_items.count - 1
     end
